@@ -11,14 +11,16 @@ import (
 type submarine struct {
 	horPos int
 	depth  int
+	aimAt  int
 }
 
 func (s *submarine) forward(i int) {
 	s.horPos += i
+	s.depth += s.aimAt * i
 }
 
-func (s *submarine) dive(i int) {
-	s.depth += i
+func (s *submarine) aim(i int) {
+	s.aimAt += i
 }
 
 func main() {
@@ -36,9 +38,9 @@ func main() {
 		case "forward":
 			s.forward(toInt(parts[1]))
 		case "down":
-			s.dive(toInt(parts[1]))
+			s.aim(toInt(parts[1]))
 		case "up":
-			s.dive(-toInt(parts[1]))
+			s.aim(-toInt(parts[1]))
 		}
 	}
 	fmt.Printf("What do you get if you multiply your final horizontal position by your final depth? %d\n", s.depth*s.horPos)
